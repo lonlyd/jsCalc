@@ -19,7 +19,7 @@ content {
   background-color: #cccccc;
   text-align: center;
   z-index: 10;
-
+  margin: 50px 0 0 50px;
 }
 
 .calc_display {
