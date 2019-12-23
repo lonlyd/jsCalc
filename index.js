@@ -3,8 +3,11 @@ var numbers = document.querySelectorAll('.number'),
   decimalBtn = document.getElementById('comma'),
   equalBtn = document.getElementById('equal'),
   clearBtns = document.querySelectorAll('.clear_btn'),
-  factorialBtn = document.getElementById('factorial');
-
+  factorialBtn = document.getElementById('factorial'),
+  display = document.getElementById('display'),
+  MemoryCurrentNumber = 0,
+  MemoryNewNumber = false,
+  memoryPendingOperation = '';
 
 for (let i = 0; i < numbers.length; i++) {
   var number = numbers[i];
@@ -34,12 +37,42 @@ equalBtn.addEventListener('click', equal);
 
 factorialBtn.addEventListener('click', factorial);
 
-function numberPress(symbol) {
-  console.log('click to number ' + symbol);
+function numberPress(number) {
+  if (MemoryNewNumber) {
+    display.value = number;
+    MemoryNewNumber = false;
+  } else {
+    if (display.value === '0') {
+      display.value = number;
+    } else {
+      display.value += number;
+    }
+    console.log('click to number ' + number);
+  }
+
 };
 
-function operation(symbol) {
-  console.log('click to operation ' + symbol);
+function operation(op) {
+  var localOperationMemory = display.value;
+  if (MemoryNewNumber && memoryPendingOperation !== '=') {
+    display.value = MemoryCurrentNumber;
+  } else {
+    MemoryNewNumber = true;
+    if (memoryPendingOperation === '+') {
+      MemoryCurrentNumber += parseFloat(localOperationMemory);
+    } else if (memoryPendingOperation === '-') {
+      MemoryCurrentNumber -= parseFloat(localOperationMemory);
+    } else if (memoryPendingOperation === '*') {
+      MemoryCurrentNumber *= parseFloat(localOperationMemory);
+    } else if (memoryPendingOperation === '/') {
+      MemoryCurrentNumber /= parseFloat(localOperationMemory);
+    } else {
+      MemoryCurrentNumber = parseFloat(localOperationMemory);
+    };
+    display.value = MemoryCurrentNumber;
+    memoryPendingOperation = op;
+  }
+  console.log('click to operation ' + op);
 };
 
 function clear(id) {
@@ -48,10 +81,6 @@ function clear(id) {
 
 function decimal(e) {
   console.log('click to decimal');
-};
-
-function equal(e) {
-  console.log('click to equal');
 };
 
 function factorial(e) {
