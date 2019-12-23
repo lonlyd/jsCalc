@@ -8,12 +8,16 @@ var numbers = document.querySelectorAll('.number'),
 
 for (let i = 0; i < numbers.length; i++) {
   var number = numbers[i];
-  number.addEventListener('click', numberPress)
+  number.addEventListener('click', function (e) {
+    numberPress(e.target.textContent);
+  })
 };
 
 for (let i = 0; i < operations.length; i++) {
   var operationBtn = operations[i];
-  operationBtn.addEventListener('click', operation)
+  operationBtn.addEventListener('click', function (e) {
+    operation(e.target.textContent);
+  });
 
 };
 
@@ -30,12 +34,12 @@ equalBtn.addEventListener('click', equal);
 
 factorialBtn.addEventListener('click', factorial);
 
-function numberPress(e) {
-  console.log('click to number');
+function numberPress(symbol) {
+  console.log('click to number ' + symbol);
 };
 
-function operation(e) {
-  console.log('click to operation');
+function operation(symbol) {
+  console.log('click to operation ' + symbol);
 };
 
 function clear(id) {
