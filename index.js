@@ -76,13 +76,39 @@ function operation(op) {
 };
 
 function clear(id) {
+  if (id === 'ce') {
+    MemoryCurrentNumber = 0;
+    display.value = 0;
+    MemoryNewNumber = 0;
+    memoryPendingOperation = '';
+  } else if (id === 'c') {
+    display.value = 0;
+    MemoryNewNumber = true;
+  }
   console.log('click to ' + id);
+
 };
 
 function decimal(e) {
+  var localDecimalMemory = display.value;
+  if (MemoryNewNumber) {
+    localDecimalMemory = '0.';
+    MemoryNewNumber = false;
+  } else {
+    if (localDecimalMemory.indexOf('.') === -1) {
+      localDecimalMemory += '.';
+    };
+  };
+  display.value = localDecimalMemory;
   console.log('click to decimal');
 };
 
 function factorial(e) {
-  console.log('click to factorial');
-};
+  var localFactoryMemory = display.value,
+    result = 1;
+  while (localFactoryMemory != 1) {
+    result = result * localFactoryMemory;
+    localFactoryMemory = localFactoryMemory - 1;
+  };
+  display.value = result;
+}
