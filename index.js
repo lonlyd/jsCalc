@@ -1,4 +1,5 @@
-var numbers = document.querySelectorAll('.number'),
+var
+  numbers = document.querySelectorAll('.number'),
   operations = document.querySelectorAll('.operation'),
   decimalBtn = document.getElementById('comma'),
   equalBtn = document.getElementById('equal'),
@@ -47,7 +48,6 @@ function numberPress(number) {
     } else {
       display.value += number;
     }
-    console.log('click to number ' + number);
   }
 
 };
@@ -72,7 +72,6 @@ function operation(op) {
     display.value = MemoryCurrentNumber;
     memoryPendingOperation = op;
   }
-  console.log('click to operation ' + op);
 };
 
 function clear(id) {
@@ -85,8 +84,6 @@ function clear(id) {
     display.value = 0;
     MemoryNewNumber = true;
   }
-  console.log('click to ' + id);
-
 };
 
 function decimal(e) {
@@ -100,15 +97,18 @@ function decimal(e) {
     };
   };
   display.value = localDecimalMemory;
-  console.log('click to decimal');
 };
 
 function factorial(e) {
   var localFactoryMemory = display.value,
     result = 1;
-  while (localFactoryMemory != 1) {
-    result = result * localFactoryMemory;
-    localFactoryMemory = localFactoryMemory - 1;
-  };
-  display.value = result;
+  if (localFactoryMemory != 0) {
+    while (localFactoryMemory != 1) {
+      result = result * localFactoryMemory;
+      localFactoryMemory = localFactoryMemory - 1;
+    };
+    display.value = result;
+  } else {
+    alert('Введите число!');
+  }
 }
