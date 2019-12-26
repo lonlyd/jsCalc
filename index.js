@@ -34,8 +34,6 @@ for (let i = 0; i < clearBtns.length; i++) {
 
 decimalBtn.addEventListener('click', decimal);
 
-equalBtn.addEventListener('click', equal);
-
 factorialBtn.addEventListener('click', factorial);
 
 function numberPress(number) {
@@ -66,6 +64,8 @@ function operation(op) {
       MemoryCurrentNumber *= parseFloat(localOperationMemory);
     } else if (memoryPendingOperation === '/') {
       MemoryCurrentNumber /= parseFloat(localOperationMemory);
+    } else if (memoryPendingOperation === '!') {
+      return factorial;
     } else {
       MemoryCurrentNumber = parseFloat(localOperationMemory);
     };
@@ -102,7 +102,7 @@ function decimal(e) {
 function factorial(e) {
   var localFactoryMemory = display.value,
     result = 1;
-  if (localFactoryMemory != 0) {
+  if ((localFactoryMemory != 0) || (MemoryNewNumber)) {
     while (localFactoryMemory != 1) {
       result = result * localFactoryMemory;
       localFactoryMemory = localFactoryMemory - 1;
@@ -110,5 +110,6 @@ function factorial(e) {
     display.value = result;
   } else {
     alert('Введите число!');
-  }
+    MemoryNewNumber = false;
+  };
 }
